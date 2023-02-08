@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- 詳細画面の表示 -->
+<div class="row my-4">
+    <div class="col-md-8">
+        {% for post in post_data %}
+        <div class="card mb-4">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text"> {{ post.content|truncatechars:100 }} </p>
+            <div class="btn btn-warning">詳細</div>
+        </div>
+        <div class="card-footer text-muted">
+            <!-- 日付と筆者を取得する -->
+            {{ post.created|date }} by {{ post.author }}
+        </div>
+        <a href="{% url 'post_detail' post.id %}" class="streched-link"></a>
+        <br><br>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" type="text/css" media="screen and (min-width: 500px)"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>ぬこあつめ</title>
+
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav class="navbar navvar-expand-lg navbar-dark bg-dark">
+    <dic class="container">
+      <a class="navbar-brand" href="/">ぬこあつめ</a>
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="/">ホーム</a>
+          </li>
+          <!-- ユーザーがログインした場合-->
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'post_new' %}">投稿</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
+            </li>
+          <!-- ユーザーがログインしていない場合 -->
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_signup' %}">サインアップ</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+          </li>
+          {% endif %}
+      </ul>
+    </dic>
+  </nav>
+  </header>
+
+  <!-- main -->
+  <main>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer class="py-2 bg-dar">
+    <p class="m-0 text-center text-whiete">Copyright &copy; 2011-2019 The Bootstrap Authors </p>
+    <p class="m-0 text-center text-whiete">Copyright &copy; 2011-2019 Twitter, Inc. </p>
+  </footer>
+
+  {% block extra_js %}
+  {% endblock %}
+</body>
+</html>
