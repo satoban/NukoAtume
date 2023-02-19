@@ -50,3 +50,12 @@ main {
 .form-control:focus {
     box-sizing: none;
 }
+
+a {
+    color: black;
+}
+
+a.hover {
+    text-decoration: none;
+    color: orange;
+}
