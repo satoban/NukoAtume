@@ -62,8 +62,9 @@ class CreatePostView(LoginRequiredMixin, View):
             category_data = Category.objects.get(
                 name=category)  # データを上記で取得したカテゴリーでフィルタを掛けて取得する
             post_data.category = category_data
-
             post_data.content = form.cleaned_data['content']
+            if request.FILES:
+                post_data.image = request.FILES.get('image')
             post_data.save()  # 作成した投稿内容をデータベースに保存する
             return redirect('post_detail', post_data.id)
 
@@ -84,6 +85,7 @@ class PostEditView(LoginRequiredMixin, View):
         form = PostForm(request.POST or None,
                         initial={'title': post_data.title,
                                  'category': post_data.category,
+                                 'image': post_data.image,
                                  'content': post_data.content
                                  })
         return render(request, 'app/post_form.html',
@@ -104,6 +106,9 @@ class PostEditView(LoginRequiredMixin, View):
             post_data.category = category_data
 
             post_data.content = form.cleaned_data['content']
+
+            if request.FILES:  # 画像が変更された時
+                post_data.image = request.FILES.get('image')
             post_data.save()  # 作成した投稿内容をデータベースに保存する
             return redirect('post_detail', self.kwargs['pk'])
 

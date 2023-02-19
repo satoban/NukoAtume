@@ -19,7 +19,8 @@ class Post(models.Model):
     '''
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)  # ユーザモデルが削除された時、投稿も削除される
-
+    image = models.ImageField(
+        upload_to='images', verbose_name='アップロード画像', null=True, blank=True)
     category = models.ForeignKey(Category, verbose_name='カテゴリ',
                                  on_delete=models.PROTECT)  # カテゴリーが削除された時、投稿が削除されないようにする
 
